@@ -2,6 +2,6 @@
 
 return (object)[
     'username' => 'root',
-    'password' => 'root',
+    'password' => '',
     'databaseName' => 'DichVuDB'
 ];

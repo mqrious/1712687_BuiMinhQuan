@@ -1,0 +1,28 @@
+<h1>Tra cứu đơn hàng</h1>
+<form>
+    <div class="dropdown-divider"></div>
+    <h3>Thông tin đơn hàng</h3>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="phoneNumber">Số điện thoại khách hàng</label>
+            <input type="text" class="form-control" id="phoneNumber"  placeholder="Số điện thoại" value="967572822">
+        </div>
+        <div class="form-group col">
+            <label for="registerCode">Mã đăng ký đơn hàng</label>
+            <input type="text" class="form-control" id="registerCode" placeholder="Mã đăng ký" value="617909537">
+        </div>
+        <div class="form-group d-flex flex-col align-items-end">
+            <button id="lookUp" type="button" class="btn btn-primary">Tìm đơn hàng</button>
+        </div>
+    </div>
+    <div class="dropdown-divider"></div>
+    <div class="order-info-container">
+        <?php
+            // require './view/order/order_info.phtml.php'
+        ?>
+    </div>
+</form>
+
+<script type="text/javascript">
+    <?php require_once('./public/js/order/find.js') ?>
+</script>

@@ -1,12 +1,10 @@
 <?php
 
-class HomeController
+class AdminController
 {
-
     public function index()
     {
-        $VIEW = './view/index.phtml';
+        $VIEW = './view/admin/index.phtml';
         require './layout/app.phtml';
     }
-
 }

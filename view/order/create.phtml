@@ -1,0 +1,82 @@
+<?php
+/**
+ * @var array $services
+ * @var Service $service
+ */
+?>
+<h1>Đặt dịch vụ</h1>
+<form>
+    <div class="dropdown-divider"></div>
+    <h3>Thông tin liên lạc</h3>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="customerName">Tên khách hàng</label>
+            <input type="text" class="form-control" id="customerName"  placeholder="Tên khách hàng">
+        </div>
+        <div class="form-group col">
+            <label for="phoneNumber">Số điện thoại</label>
+            <input type="text" class="form-control" id="phoneNumber" placeholder="Số điện thoại">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="address">Địa chỉ</label>
+            <input type="text" class="form-control" id="address" placeholder="Địa chỉ">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="province">Tỉnh/Thành</label>
+            <select id="province" class="form-control">
+                <option value="" selected>Tính/Thành</option>
+            </select>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="district">Quận/Huyện</label>
+            <select id="district" class="form-control">
+                <option value="" selected>Quận/Huyện</option>
+            </select>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="ward">Phường/Xã</label>
+            <select id="ward" class="form-control">
+                <option value="" selected>Phường/Xã</option>
+            </select>
+        </div>
+    </div>
+    <div class="dropdown-divider"></div>
+    <h3>Thông tin dịch vụ</h3>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="service">Dịch vụ sửa chữa</label>
+            <select id="service" class="form-control">
+                <option value="" selected>Chọn dịch vụ</option>
+                <?php if (isset($services)): ?>
+                    <?php foreach($services as $service): ?>
+                        <option value="<?php echo $service->id ?>" data-price="<?php echo $service->price ?>">
+                            <?php echo $service->name ?> - Đơn giá: <?php echo $service->getPrice() ?>
+                        </option>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+        </div>
+        <div class="form-group col">
+            <label for="unit">Số lượng</label>
+            <input type="number" class="form-control" id="unit" placeholder="Số lượng">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="note">Ghi chú</label>
+            <input type="text" class="form-control" id="note" placeholder="Ghi chú">
+        </div>
+    </div>
+    <div class="dropdown-divider"></div>
+    <h4>Thành tiền: <span class="totalPrice">0</span> VNĐ</h4>
+    <div class="dropdown-divider"></div>
+    <button id="makeOrder" type="button" class="btn btn-primary">Đặt dịch vụ</button>
+</form>
+
+<script type="text/javascript">
+    <?php require_once('./public/js/order/create.js') ?>
+</script>

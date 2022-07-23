@@ -1,0 +1,29 @@
+<?php
+/**
+ * @var Order $order
+ */
+?>
+
+<style>
+    <?php echo file_get_contents("public/css/order/success.css") ?>
+</style>
+
+<div class="page-container">
+    <div class="success-container">
+        <h1 class="success-title">Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!</h1>
+        <?php if (isset($order)): ?>
+            <h3 class="order-summary">Đơn hàng <span class="order-id"><b>#<?php echo $order->registerCode ?></span></b> (<span
+                    class="order-total"><?php echo $order->getTotalPrice() ?></span>) của bạn đang được
+                xử lý và sẽ được xác nhận trong thời gian sớm nhất.
+            </h3>
+            <span class="order-shipping-address">Tên khách hàng: <?php echo $order->customerName ?></span>
+            <span class="order-shipping-address">Số điện thoại: <?php echo $order->getPhoneNumber() ?></span>
+            <span class="order-shipping-address">Địa chỉ: <?php echo $order->address ?></span>
+            <span class="order-shipping-address">Dịch vụ: <?php echo $order->service()->name ?></span>
+            <span class="order-shipping-address">Số lượng: <?php echo $order->unit ?></span>
+            <span class="order-shipping-address">Ghi chú: <?php echo $order->getNote() ?></span>
+            <br>
+        <?php endif; ?>
+        <a href="index.php" id="home" class="btn btn-primary">Trở về trang chủ</a>
+    </div>
+</div>

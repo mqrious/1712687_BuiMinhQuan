@@ -1,0 +1,25 @@
+.page-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.success-container {
+    background-color: white;
+    padding: 40px 40px;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+h1.success-title {
+    font-size: 28px;
+    text-align: center;
+}
+
+h3.order-summary {
+    font-size: 20px;
+    font-weight: 300;
+    text-align: center;
+}

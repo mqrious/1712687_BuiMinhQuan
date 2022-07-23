@@ -2,7 +2,7 @@
 
 function connect()
 {
-    $config = include_once('config/config.inc.php');
+    $config = include('config/config.inc.php');
 
     $hostName = 'localhost';
     $username = $config->username;
