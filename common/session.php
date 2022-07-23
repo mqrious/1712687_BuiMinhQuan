@@ -24,23 +24,21 @@ function sessionHas($key): bool
     return isset($_SESSION[$key]);
 }
 
-function sessionLogin($user)
+function sessionLogin(Account $account)
 {
-    sessionSet('userId', $user->id);
-    sessionSet('username', $user->name);
-    sessionSet('role', $user->role);
+    sessionSet('username', $account->username);
+    sessionSet('type', $account->type);
 }
 
 function sessionLogout()
 {
-    sessionRemove('userId');
     sessionRemove('username');
-    sessionRemove('role');
+    sessionRemove('type');
 }
 
 function isGuest(): bool
 {
-    return !(sessionHas('userId') && sessionHas('userName') && sessionHas('role'));
+    return !(sessionHas('username') && sessionHas('type'));
 }
 
 function getUsername(): string
@@ -50,5 +48,5 @@ function getUsername(): string
 
 function isAdmin(): bool
 {
-    return !isGuest() && (sessionGet('role') == 'ADMIN');
+    return !isGuest() && (sessionGet('type') == 1);
 }

@@ -1,21 +1,23 @@
 <h1>Trang chủ của Admin</h1>
 <ol start="5">
-    <!--    Trang 5-->
-    <li>
-        <a href="">Trang Xem danh sách đặt hàng</a>
-        <p>Sắp xếp giảm dần theo thời gian; Lọc danh sách đặt hàng theo:
-            khoảng thời gian, trạng thái, số điện thoại, tên khách hàng.
-            Với mỗi đơn hàng hiển thị, có liên kết tới Trang 6.</p>
-    </li>
-    <!--    Trang 6-->
-    <li>
-        <a href="">Trang Xem chi tiết và cập nhật trạng thái</a>
-        <p>Đã Xác Nhận, Đang Tiến Hành, Hoàn Tất, Huỷ.
-            Sau khi cập nhật thì có trang thông báo cập nhật thành công.</p>
-    </li>
+    <?php if(!isGuest()): ?>
+        <!--    Trang 5-->
+        <li>
+            <a href="">Trang Xem danh sách đặt hàng</a>
+            <p>Sắp xếp giảm dần theo thời gian; Lọc danh sách đặt hàng theo:
+                khoảng thời gian, trạng thái, số điện thoại, tên khách hàng.
+                Với mỗi đơn hàng hiển thị, có liên kết tới Trang 6.</p>
+        </li>
+        <!--    Trang 6-->
+        <li>
+            <a href="">Trang Xem chi tiết và cập nhật trạng thái</a>
+            <p>Đã Xác Nhận, Đang Tiến Hành, Hoàn Tất, Huỷ.
+                Sau khi cập nhật thì có trang thông báo cập nhật thành công.</p>
+        </li>
+    <?php endif; ?>
     <!--    Trang 7-->
     <li>
-        <a href="">Đăng nhập</a>
+        <a href="admin.php?action=login">Đăng nhập</a>
         <p>Đăng nhập.</p>
     </li>
 </ol>

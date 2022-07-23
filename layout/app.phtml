@@ -1,5 +1,13 @@
 <?php
 $currentURI = substr($_SERVER['REQUEST_URI'], strpos($_SERVER['REQUEST_URI'], '/', 1) + 1);
+//echo '<pre>';
+//var_dump($_SESSION);
+//echo '</pre>';
+//
+//echo '<pre>';
+//var_dump(isAdmin());
+//echo '</pre>';
+//
 ?>
 <!doctype html>
 <html lang="en">
@@ -41,6 +49,19 @@ $currentURI = substr($_SERVER['REQUEST_URI'], strpos($_SERVER['REQUEST_URI'], '/
                     <a class="nav-link <?php echo $currentURI === 'club.php?action=add' ? 'active' : '' ?>"
                        aria-current="page" href="club.php?action=add">Add new club</a>
                 </li>
+            </ul>
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <?php if (isAdmin()): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page"
+                           href="#">Xin chào <?php echo getUsername() ?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page"
+                           href="admin.php?action=logout">Đăng xuất</a>
+                    </li>
+                <?php endif; ?>
+
             </ul>
         </div>
     </div>
