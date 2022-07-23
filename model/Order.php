@@ -90,7 +90,7 @@ class Order extends Model
 
     public function getPhoneNumber(): string
     {
-        return '0'.$this->phoneNumber;
+        return strlen($this->phoneNumber) == 10 ? $this->phoneNumber : '0'.$this->phoneNumber;
     }
 
     public function cancellable(): bool

@@ -14,6 +14,12 @@ $controller = new OrderController();
 
 if ($requestMethod === 'get') {
     switch ($action) {
+        case 'listAll':
+            $controller->listAll();
+            break;
+        case 'viewOrder':
+            $controller->viewOrder();
+            break;
         case 'create':
             $controller->create();
             break;
@@ -28,6 +34,9 @@ if ($requestMethod === 'get') {
     }
 } else if ($requestMethod === 'post') {
     switch ($action) {
+        case 'queryOrder':
+            $controller->queryOrder();
+            break;
         case 'createOrder':
             $controller->createOrder();
             break;
@@ -36,6 +45,9 @@ if ($requestMethod === 'get') {
             break;
         case 'cancelOrder':
             $controller->cancelOrder();
+            break;
+        case 'updateOrderStatus':
+            $controller->updateOrderStatus();
             break;
         default:
             $controller->responseNotFound();

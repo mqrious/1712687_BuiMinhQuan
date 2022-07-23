@@ -7,4 +7,26 @@ abstract class EOrderStatus
     const IN_PROGRESS = 'DANGTIENHANH';
     const FINISHED = 'HOANTAT';
     const CANCELLED = 'HUY';
+
+    public static function getOrderStatuses(): array
+    {
+        return [
+            'DAKHOITAO' => 'Đã khởi tạo',
+            'DAXACNHAN' => 'Đã xác nhận',
+            'DANGTIENHANH' => 'Đang tiến hành',
+            'HOANTAT' => 'Hoàn tất',
+            'HUY' => 'Huỷ',
+        ];
+    }
+
+    public static function getAvailableStatuses(string $currentStatus): array
+    {
+        $availableStatuses = EOrderStatus::getOrderStatuses();
+        if (!in_array($currentStatus, array_keys($availableStatuses))) {
+            return [];
+        }
+        $currentStatusIndex = array_search(array_search($currentStatus, array_keys($availableStatuses)), $availableStatuses);
+        return array_slice($availableStatuses, $currentStatusIndex + 1, 5);
+    }
+
 }

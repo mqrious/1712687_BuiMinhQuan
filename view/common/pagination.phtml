@@ -1,0 +1,49 @@
+<?php
+
+if (isset($pagination)) {
+    $nearbyCount = 3;
+    $currentPage = $pagination['currentPage'];
+    $pageCount = $pagination['pageCount'];
+    echo '<nav aria-label="...">
+            <ul class="pagination justify-content-center">';
+    echo sprintf('
+        <li class="page-item %s">
+            <a class="page-link" id="%s" href="javascript:">Previous</a>
+        </li>
+        ',
+        $currentPage == 1 ? 'disabled' : '',
+        $currentPage == 1 ? '' : ($currentPage - 1)
+    );
+
+    for ($i = 1; $i <= $pagination['pageCount']; $i++) {
+        $isCurrentPage = $i == $currentPage;
+
+        if (
+            ($i < $nearbyCount) || ($i > $pageCount - ($nearbyCount - 1))
+            || ($currentPage > $i - $nearbyCount && $currentPage < $i + $nearbyCount)
+        ) {
+            echo sprintf('<li class="page-item %s"><a class="page-link" id="%s" href="javascript:">%s</a></li>',
+                $isCurrentPage ? 'active' : '',
+                $isCurrentPage ? '' : $i,
+                $i
+            );
+
+        } else if (($i == $nearbyCount) || ($i == $pageCount - $nearbyCount)) {
+            echo '<li class="page-item"><a class="page-link">...</a></li>';
+
+        }
+
+    }
+    echo sprintf('
+        <li class="page-item %s">
+            <a class="page-link" id="%s" href="javascript:">Next</a>
+        </li>
+        ',
+        $currentPage == $pageCount ? 'disabled' : '',
+        $currentPage == $pageCount ? '' : ($currentPage + 1)
+    );
+    echo '
+            </ul>
+        </nav>
+    ';
+}

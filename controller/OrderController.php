@@ -5,7 +5,53 @@ class OrderController extends Controller
     private const SUCCESS_ORDER_REGISTER_CODE = 'success-order-register-code';
     private const SUCCESS_ORDER_PHONE_NUMBER = 'success-order-phone-number';
 
+    private const PAGINATION_SIZE = 3;
+
     // Web functions
+    public function listAll()
+    {
+        if (!isAdmin()) {
+            header('Location: index.php');
+            return;
+        }
+        $model = new Order();
+        $pagination = $model->paginate(self::PAGINATION_SIZE);
+
+        $statuses = EOrderStatus::getOrderStatuses();
+
+        $TITLE = 'Danh sách đơn hàng';
+        $VIEW = './view/order/index.phtml';
+        require './layout/app.phtml';
+    }
+
+    /**
+     * @var Order|null $order
+     */
+    public function viewOrder()
+    {
+        if (!isAdmin()) {
+            header('Location: index.php');
+            return;
+        }
+        $id = (int)$_GET['id'] ?? false;
+        if (!$id) {
+            $this->responseNotFound();
+            return;
+        }
+        $model = new Order();
+        $order = $model->where('id', '=', $id)->first();
+        if (!$order) {
+            $this->responseNotFound();
+            return;
+        }
+
+        $statuses = EOrderStatus::getAvailableStatuses($order->status);
+
+        $TITLE = "Chi tiết đơn hàng #$order->id";
+        $VIEW = './view/order/view_order.phtml';
+        require './layout/app.phtml';
+    }
+
     public function create()
     {
         $model = new Service();
@@ -95,6 +141,38 @@ class OrderController extends Controller
         require './view/order/order_info.phtml.php';
     }
 
+    public function queryOrder()
+    {
+        if (!isAdmin()) {
+            $this->responseNotFound();
+            return;
+        }
+        $model = new Order();
+        if ($registerCode = $_POST['registerCode'] ?? false) {
+            $model->where('registerCode', 'LIKE', $registerCode);
+        }
+        if ($customerName = $_POST['customerName'] ?? false) {
+            $model->where('customerName', 'LIKE', $customerName);
+        }
+        if ($phoneNumber = $_POST['phoneNumber'] ?? false) {
+            if (substr($phoneNumber, 0, 1) == '0') {
+                $phoneNumber = substr($phoneNumber, 1);
+            }
+            $model->where('phoneNumber', 'LIKE', $phoneNumber);
+        }
+        if ($status = $_POST['status'] ?? false) {
+            $model->where('status', '=', $status);
+        }
+        if ($startAt = $_POST['startAt'] ?? false) {
+            $model->where('startAt', '>=', $startAt);
+        }
+        if ($finishAt = $_POST['finishAt'] ?? false) {
+            $model->where('finishAt', '<=', $finishAt);
+        }
+        $pagination = $model->paginate(self::PAGINATION_SIZE);
+        echo require './view/order/table.phtml';
+    }
+
     public function cancelOrder()
     {
         $this->updateOrderWithStatus(EOrderStatus::CANCELLED);
@@ -126,9 +204,15 @@ class OrderController extends Controller
             $this->response(self::HTTP_NOT_FOUND, [], 'Không tìm thấy đơn hàng hợp lệ');
             return;
         }
-        $order->update([
+
+        $params = [
             'status' => $status
-        ]);
+        ];
+        if ($status == EOrderStatus::FINISHED) {
+            $params['finishAt'] = date('Y-m-d H:i:s');
+        }
+
+        $order->update($params);
         $this->response(self::HTTP_OK, [], 'Cập nhật trạng thái đơn hàng thành công.');
     }
 
