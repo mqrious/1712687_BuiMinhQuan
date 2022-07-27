@@ -15,15 +15,11 @@ if ($requestMethod === 'get') {
             $controller->getAll();
             break;
         default:
-            http_response_code(404);
-            echo 'Not found';
-            die();
+            $controller->responseNotFound();
     }
 } else if ($requestMethod === 'post') {
     switch ($action) {
         default:
-            http_response_code(404);
-            echo 'Not found';
-            die();
+            $controller->responseNotFound();
     }
 }

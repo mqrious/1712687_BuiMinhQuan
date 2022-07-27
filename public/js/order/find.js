@@ -66,6 +66,7 @@ $(function () {
             data: data,
             success: (response) => {
                 alert(response.message);
+                location.reload();
             },
             error: (errors) => {
                 console.log(errors);

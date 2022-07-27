@@ -49,7 +49,7 @@ CREATE TABLE `DONHANG` (
   `DienThoai` varchar(11) NOT NULL,
   `DiaChi` varchar(150) NOT NULL,
   `ThoiGianBD` datetime NOT NULL,
-  `TrangThai` varchar(10) NOT NULL,
+  `TrangThai` varchar(20) NOT NULL,
   `ThoiGianKT` datetime,
   `MaDV` int(11) NOT NULL,
   `SoLuong` float NOT NULL,

@@ -15,7 +15,8 @@ class OrderController extends Controller
             return;
         }
         $model = new Order();
-        $pagination = $model->paginate(self::PAGINATION_SIZE);
+        $pagination = $model->orderBy('startAt', 'DESC')
+            ->paginate(self::PAGINATION_SIZE);
 
         $statuses = EOrderStatus::getOrderStatuses();
 
@@ -44,9 +45,7 @@ class OrderController extends Controller
             $this->responseNotFound();
             return;
         }
-
         $statuses = EOrderStatus::getAvailableStatuses($order->status);
-
         $TITLE = "Chi tiết đơn hàng #$order->id";
         $VIEW = './view/order/view_order.phtml';
         require './layout/app.phtml';
@@ -169,7 +168,8 @@ class OrderController extends Controller
         if ($finishAt = $_POST['finishAt'] ?? false) {
             $model->where('finishAt', '<=', $finishAt);
         }
-        $pagination = $model->paginate(self::PAGINATION_SIZE);
+        $pagination = $model->orderBy('startAt', 'DESC')
+            ->paginate(self::PAGINATION_SIZE);
         echo require './view/order/table.phtml';
     }
 

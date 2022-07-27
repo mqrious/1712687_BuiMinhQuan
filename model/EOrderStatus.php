@@ -25,8 +25,10 @@ abstract class EOrderStatus
         if (!in_array($currentStatus, array_keys($availableStatuses))) {
             return [];
         }
-        $currentStatusIndex = array_search(array_search($currentStatus, array_keys($availableStatuses)), $availableStatuses);
-        return array_slice($availableStatuses, $currentStatusIndex + 1, 5);
+        $currentStatusIndex = array_search($currentStatus, array_keys($availableStatuses));
+        $availableStatuses = array_slice($availableStatuses, $currentStatusIndex + 1, 5);
+        array_pop($availableStatuses); # Remove Cancelled status;
+        return $availableStatuses;
     }
 
 }
